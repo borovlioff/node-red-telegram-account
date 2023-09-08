@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    RED.nodes.registerType('get-entity', {
+        category: 'telegram-account',
+        color: '#229ED9',
+        icon: 'tg.png',
+        align: "right",
+        defaults: {
+            name: { value: '' },
+            config: { type: 'config', required: false },
+        },
+        inputs: 1,
+        outputs: 1,
+        label: function () {
+            return this.name || 'Get Entity';
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="get-entity">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i> Name
+        </label>
+        <input
+            type="text"
+            id="node-input-name"
+            placeholder="Name"
+            style="width: 60%"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-config">
+            <i class="fa fa-tag"></i> Config
+        </label>
+        <input
+            type="text"
+            id="node-input-config"
+            placeholder="Config"
+            style="width: 60%"
+        />
+    </div>
+</script>

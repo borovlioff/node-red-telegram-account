@@ -1,0 +1,256 @@
+<script type="text/javascript">
+    RED.nodes.registerType('iter-messages', {
+        category: 'telegram',
+        color: '#32a3e0',
+        defaults: {
+            name: { value: '' },
+            config: { type: 'config', required: true },
+            chatId: { value: '', required: false },
+            limit: { value: '', required: false },
+            offsetDate: { value: '', required: false },
+            offsetId: { value: '', required: false },
+            maxId: { value: '', required: false },
+            minId: { value: '', required: false },
+            addOffset: { value: '', required: false },
+            search: { value: '', required: false },
+            filter: { value: '', required: false },
+            fromUser: { value: '', required: false },
+            waitTime: { value: '', required: false },
+            ids: { value: '', required: false },
+            reverse: { value: '', required: false },
+            replyTo: { value: '', required: false },
+            scheduled: { value: '', required: false }
+        },
+        inputs: 1,
+        outputs: 1,
+        paletteLabel: 'Iterate Messages',
+        label: function () {
+            return this.name || 'Iterate Messages';
+        },
+        oneditprepare: function(){
+            const node = this;
+            $("#node-input-ids").val(node.ids.join(","))
+        },
+        oneditsave:function(){
+            const node = this;
+            ids =  $("#node-input-ids").val();
+            if(ids){
+                node.ids = ids.split(",").map(id => parseInt(id))
+            }
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="iter-messages">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i> Name
+        </label>
+        <input
+            type="text"
+            id="node-input-name"
+            placeholder="Name"
+            style="width: 60%"
+            ng-model="name"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-config">
+            <i class="fa fa-tag"></i> Config
+        </label>
+        <input
+            type="text"
+            id="node-input-config"
+            placeholder="Config"
+            style="width: 60%"
+            ng-model="config"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-chatId">
+            <i class="fa fa-tag"></i> Chat ID
+        </label>
+        <input
+            type="text"
+            id="node-input-chatId"
+            placeholder="Chat ID"
+            style="width: 60%"
+            ng-model="chatId"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-limit">
+            <i class="fa fa-tag"></i> Limit
+        </label>
+        <input
+            type="number"
+            id="node-input-limit"
+            placeholder="Limit"
+            style="width: 60%"
+            ng-model="limit"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-offsetDate">
+            <i class="fa fa-tag"></i> Offset Date
+        </label>
+        <input
+            type="datetime-local"
+            id="node-input-offsetDate"
+            placeholder="Offset Date"
+            style="width: 60%"
+            ng-model="offsetDate"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-offsetId">
+            <i class="fa fa-tag"></i> Offset ID
+        </label>
+        <input
+            type="number"
+            id="node-input-offsetId"
+            placeholder="Offset ID"
+            style="width: 60%"
+            ng-model="offsetId"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-maxId">
+            <i class="fa fa-tag"></i> Max ID
+        </label>
+        <input
+            type="number"
+            id="node-input-maxId"
+            placeholder="Max ID"
+            style="width: 60%"
+            ng-model="maxId"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-minId">
+            <i class="fa fa-tag"></i> Min ID
+        </label>
+        <input
+            type="number"
+            id="node-input-minId"
+            placeholder="Min ID"
+            style="width: 60%"
+            ng-model="minId"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-addOffset">
+            <i class="fa fa-tag"></i> Add Offset
+        </label>
+        <input
+            type="number"
+            id="node-input-addOffset"
+            placeholder="Add Offset"
+            style="width: 60%"
+            ng-model="addOffset"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-search">
+            <i class="fa fa-tag"></i> Search
+        </label>
+        <input
+            type="text"
+            id="node-input-search"
+            placeholder="Search"
+            style="width: 60%"
+            ng-model="search"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-filter">
+            <i class="fa fa-tag"></i> Filter
+        </label>
+        <input type="checkbox" name="filter" value="InputMessagesFilterEmpty">Empty<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterPhotos">Photos<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterVideo">Video<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterPhotoVideo">Photo and Video<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterDocument">Document<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterUrl">URL<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterGif">GIF<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterVoice">Voice<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterMusic">Music<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterChatPhotos">Chat Photos<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterPhoneCalls">Phone Calls<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterRoundVoice">Round Voice<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterRoundVideo">Round Video<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterMyMentions">My Mentions<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterGeo">Geo<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterContacts">Contacts<br>
+        <input type="checkbox" name="filter" value="InputMessagesFilterPinned">Pinned<br>
+
+    </div>
+    <div class="form-row">
+        <label for="node-input-fromUser">
+            <i class="fa fa-tag"></i> From User
+        </label>
+        <input
+            type="text"
+            id="node-input-fromUser"
+            placeholder="From User"
+            style="width: 60%"
+            ng-model="fromUser"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-waitTime">
+            <i class="fa fa-tag"></i> Wait Time
+        </label>
+        <input
+            type="number"
+            id="node-input-waitTime"
+            placeholder="Wait Time"
+            style="width: 60%"
+            ng-model="waitTime"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-ids">
+            <i class="fa fa-tag"></i> IDs
+        </label>
+        <input
+            type="text"
+            id="node-input-ids"
+            placeholder="123,1245"
+            style="width: 60%"
+            ng-model="ids"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-reverse">
+            <i class="fa fa-tag"></i> Reverse
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-reverse"
+            ng-model="reverse"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-replyTo">
+            <i class="fa fa-tag"></i> Reply To
+        </label>
+        <input
+            type="number"
+            id="node-input-replyTo"
+            placeholder="Reply To"
+            style="width: 60%"
+            ng-model="replyTo"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-scheduled">
+            <i class="fa fa-tag"></i> Scheduled
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-scheduled"
+            ng-model="scheduled"
+        />
+    </div>
+</script>

@@ -1,0 +1,316 @@
+<script type="text/javascript">
+    RED.nodes.registerType('send-files', {
+        category: 'telegram',
+        color: '#32a3e0',
+        defaults: {
+            name: { value: '' },
+            config: { type: 'config', required: true },
+            chatId: { value: '', required: true },
+            files: { value: '', required: true },
+            caption: { value: '' },
+            forceDocument: { value: false },
+            fileSize: { value: 0 },
+            clearDraft: { value: false },
+            progressCallback: { value: '' },
+            replyTo: { value: '' },
+            attributes: { value: '' },
+            thumb: { value: '' },
+            voiceNote: { value: false },
+            videoNote: { value: false },
+            supportsStreaming: { value: false },
+            parseMode: { value: '' },
+            formattingEntities: { value: '' },
+            silent: { value: false },
+            scheduleDate: { value: 0 },
+            buttons: { value: '' },
+            workers: { value: 0 },
+            noforwards: { value: false },
+            commentTo: { value: '' },
+            topMsgId: { value: '' },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'file.png',
+        paletteLabel: 'Send Files',
+        label: function () {
+            return this.name || 'Send Files';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="send-files">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i> Name
+        </label>
+        <input
+            type="text"
+            id="node-input-name"
+            placeholder="Name"
+            style="width: 60%"
+            ng-model="name"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-config">
+            <i class="fa fa-tag"></i> Config
+        </label>
+        <input
+            type="text"
+            id="node-input-config"
+            placeholder="Config"
+            style="width: 60%"
+            ng-model="config"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-chatId">
+            <i class="fa fa-tag"></i> Chat ID
+        </label>
+        <input
+            type="text"
+            id="node-input-chatId"
+            placeholder="Chat ID"
+            style="width: 60%"
+            ng-model="chatId"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-files">
+            <i class="fa fa-tag"></i> Files (comma-separated)
+        </label>
+        <input
+            type="text"
+            id="node-input-files"
+            placeholder="url"
+            style="width: 60%"
+            ng-model="files"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-caption">
+            <i class="fa fa-tag"></i> Caption
+        </label>
+        <input
+            type="text"
+            id="node-input-caption"
+            placeholder="Caption"
+            style="width: 60%"
+            ng-model="caption"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-forceDocument">
+            <i class="fa fa-tag"></i> Force Document
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-forceDocument"
+            ng-model="forceDocument"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-fileSize">
+            <i class="fa fa-tag"></i> File Size
+        </label>
+        <input
+            type="number"
+            id="node-input-fileSize"
+            placeholder="File Size"
+            style="width: 60%"
+            ng-model="fileSize"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-clearDraft">
+            <i class="fa fa-tag"></i> Clear Draft
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-clearDraft"
+            ng-model="clearDraft"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-progressCallback">
+            <i class="fa fa-tag"></i> Progress Callback
+        </label>
+        <input
+            type="text"
+            id="node-input-progressCallback"
+            placeholder="Progress Callback"
+            style="width: 60%"
+            ng-model="progressCallback"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-replyTo">
+            <i class="fa fa-tag"></i> Reply To
+        </label>
+        <input
+            type="text"
+            id="node-input-replyTo"
+            placeholder="Reply To"
+            style="width: 60%"
+            ng-model="replyTo"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-attributes">
+            <i class="fa fa-tag"></i> Attributes
+        </label>
+        <input
+            type="text"
+            id="node-input-attributes"
+            placeholder="Attributes"
+            style="width: 60%"
+            ng-model="attributes"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-thumb">
+            <i class="fa fa-tag"></i> Thumbnail
+        </label>
+        <input
+            type="text"
+            id="node-input-thumb"
+            placeholder="Thumbnail"
+            style="width: 60%"
+            ng-model="thumb"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-voiceNote">
+            <i class="fa fa-tag"></i> Voice Note
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-voiceNote"
+            ng-model="voiceNote"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-videoNote">
+            <i class="fa fa-tag"></i> Video Note
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-videoNote"
+            ng-model="videoNote"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-supportsStreaming">
+            <i class="fa fa-tag"></i> Supports Streaming
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-supportsStreaming"
+            ng-model="supportsStreaming"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-parseMode">
+            <i class="fa fa-tag"></i> Parse Mode
+        </label>
+        <input
+            type="text"
+            id="node-input-parseMode"
+            placeholder="Parse Mode"
+            style="width: 60%"
+            ng-model="parseMode"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-formattingEntities">
+            <i class="fa fa-tag"></i> Formatting Entities
+        </label>
+        <input
+            type="text"
+            id="node-input-formattingEntities"
+            placeholder="Formatting Entities"
+            style="width: 60%"
+            ng-model="formattingEntities"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-silent">
+            <i class="fa fa-tag"></i> Silent
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-silent"
+            ng-model="silent"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-scheduleDate">
+            <i class="fa fa-tag"></i> Schedule Date
+        </label>
+        <input
+            type="number"
+            id="node-input-scheduleDate"
+            placeholder="Schedule Date"
+            style="width: 60%"
+            ng-model="scheduleDate"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-buttons">
+            <i class="fa fa-tag"></i> Buttons
+        </label>
+        <input
+            type="text"
+            id="node-input-buttons"
+            placeholder="Buttons"
+            style="width: 60%"
+            ng-model="buttons"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-workers">
+            <i class="fa fa-tag"></i> Workers
+        </label>
+        <input
+            type="number"
+            id="node-input-workers"
+            placeholder="Workers"
+            style="width: 60%"
+            ng-model="workers"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-noforwards">
+            <i class="fa fa-tag"></i> No Forwards
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-noforwards"
+            ng-model="noforwards"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-commentTo">
+            <i class="fa fa-tag"></i> Comment To
+        </label>
+        <input
+            type="text"
+            id="node-input-commentTo"
+            placeholder="Comment To"
+            style="width: 60%"
+            ng-model="commentTo"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-topMsgId">
+            <i class="fa fa-tag"></i> Top Message ID
+        </label>
+        <input
+            type="text"
+            id="node-input-topMsgId"
+            placeholder="Top Message ID"
+            style="width: 60%"
+            ng-model="topMsgId"
+        />
+    </div>
+</script>

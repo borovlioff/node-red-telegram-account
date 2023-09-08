@@ -1,0 +1,128 @@
+<script type="text/javascript">
+    RED.nodes.registerType('iter-dialogs', {
+        category: 'telegram',
+        color: '#32a3e0',
+        defaults: {
+            name: { value: '' },
+            config: { type: 'config', required: true },
+            limit: { value: "" },
+            offsetDate: { value: ""},
+            offsetId: { value: "" },
+            ignorePinned: { value: false },
+            ignoreMigrated: { value: false },
+            folder: { value: 0 },
+            archived: { value: "" },
+        },
+        inputs: 1,
+        outputs: 1,
+        paletteLabel: 'Iterate Dialogs',
+        label: function () {
+            return this.name || 'Iterate Dialogs';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="iter-dialogs">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i> Name
+        </label>
+        <input
+            type="text"
+            id="node-input-name"
+            placeholder="Name"
+            style="width: 60%"
+            ng-model="name"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-config">
+            <i class="fa fa-tag"></i> Config
+        </label>
+        <input
+            type="text"
+            id="node-input-config"
+            placeholder="Config"
+            style="width: 60%"
+            ng-model="config"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-limit">
+            <i class="fa fa-tag"></i> Limit
+        </label>
+        <input
+            type="text"
+            id="node-input-limit"
+            placeholder="Limit"
+            style="width: 60%"
+            ng-model="limit"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-offsetDate">
+            <i class="fa fa-tag"></i> Offset Date
+        </label>
+        <input
+            type="datetime-local"
+            id="node-input-offsetDate"
+            placeholder="Offset Date"
+            style="width: 60%"
+            ng-model="offsetDate"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-offsetId">
+            <i class="fa fa-tag"></i> Offset ID
+        </label>
+        <input
+            type="text"
+            id="node-input-offsetId"
+            placeholder="Offset ID"
+            style="width: 60%"
+            ng-model="offsetId"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-ignorePinned">
+            <i class="fa fa-tag"></i> Ignore Pinned
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-ignorePinned"
+            ng-model="ignorePinned"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-ignoreMigrated">
+            <i class="fa fa-tag"></i> Ignore Migrated
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-ignoreMigrated"
+            ng-model="ignoreMigrated"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-folder">
+            <i class="fa fa-tag"></i> Folder
+        </label>
+        <input
+            type="text"
+            id="node-input-folder"
+            placeholder="Folder"
+            style="width: 60%"
+            ng-model="folder"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-archived">
+            <i class="fa fa-tag"></i> Archived
+        </label>
+        <input
+            type="checkbox"
+            id="node-input-archived"
+            ng-model="archived"
+        />
+    </div>
+</script>
