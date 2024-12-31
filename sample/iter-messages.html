@@ -254,3 +254,112 @@
         />
     </div>
 </script>
+
+<script type="text/html" data-help-name="iter-messages">
+    <p>The <b>iter-messages</b> node retrieves messages from a specified chat or user using the Telegram API. It supports a wide range of filtering and pagination options, allowing for efficient message iteration.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload.client
+            <span class="property-type">object</span>
+        </dt>
+        <dd>An optional Telegram client instance if not configured globally.</dd>
+
+        <dt>payload.chatId
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The ID or username of the chat or user to retrieve messages from. Use "me" for personal messages.</dd>
+
+        <dt>payload.limit
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Maximum number of messages to retrieve.</dd>
+
+        <dt>payload.offsetDate
+            <span class="property-type">string | number</span>
+        </dt>
+        <dd>Fetch messages starting from this date. Accepts a UNIX timestamp or a date string.</dd>
+
+        <dt>payload.offsetId
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Fetch messages starting from this message ID.</dd>
+
+        <dt>payload.maxId
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Fetch messages with IDs less than or equal to this value.</dd>
+
+        <dt>payload.minId
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Fetch messages with IDs greater than or equal to this value.</dd>
+
+        <dt>payload.addOffset
+            <span class="property-type">number</span>
+        </dt>
+        <dd>An additional offset to apply when retrieving messages.</dd>
+
+        <dt>payload.search
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Filters messages containing the specified search term.</dd>
+
+        <dt>payload.filter
+            <span class="property-type">object</span>
+        </dt>
+        <dd>Applies a specific message filter (e.g., photos, videos, documents).</dd>
+
+        <dt>payload.filters
+            <span class="property-type">array</span>
+        </dt>
+        <dd>Applies multiple message filters using Telegram API filter classes (e.g., <code>Api.InputMessagesFilterPhotos</code>).</dd>
+
+        <dt>payload.reverse
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>Retrieves messages in reverse order if set to <code>true</code>. Default is <code>false</code>.</dd>
+
+        <dt>payload.replyTo
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Fetches messages replying to the specified message ID.</dd>
+
+        <dt>payload.scheduled
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>Includes scheduled messages if set to <code>true</code>.</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload.messages
+            <span class="property-type">object</span>
+        </dt>
+        <dd>An object containing messages, where keys are message IDs and values are message details.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>The <b>iter-messages</b> node provides a flexible way to retrieve messages from a Telegram chat or user. It allows advanced configurations such as filtering messages by type, searching for specific terms, and paginating results using offsets and IDs.</p>
+    
+    <p>The node also handles cases where a chat username needs to be resolved into an entity or peer ID. It supports using multiple filters in conjunction, enabling precise control over the messages to process.</p>
+
+    <h3>Example</h3>
+    <pre>
+    {
+        "payload": {
+            "chatId": "@examplechannel",
+            "limit": 50,
+            "search": "announcement",
+            "filters": ["InputMessagesFilterPhotos"]
+        }
+    }
+    </pre>
+    <p>This input retrieves up to 50 messages containing the term "announcement" and filters them to include only photos from the specified channel.</p>
+
+    <h3>Error Handling</h3>
+    <p>If an error occurs during message retrieval (e.g., invalid chat ID or API errors), the node logs an error message and does not return a payload.</p>
+
+    <h3>Configuration</h3>
+    <p>The node can use a globally configured Telegram client or a client instance provided in the message payload. Ensure the client has access to the specified chat or user.</p>
+</script>

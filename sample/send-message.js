@@ -50,7 +50,6 @@ module.exports = function (RED) {
                     commentTo: commentTo !== "" ? commentTo : undefined,
                     topMsgId: topMsgId !== topMsgId ? commentTo : undefined,
                 };
-                console.log("🚀 ~ file: send-message.js:60 ~ params:", params)
 
                 if (schedule) {
                     params.schedule = new Date(schedule).getTime() / 1000;
@@ -77,6 +76,7 @@ module.exports = function (RED) {
             }
 
         });
+
     }
 
     RED.nodes.registerType('send-message', SendMessage);

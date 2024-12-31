@@ -1,6 +1,5 @@
 const { NewMessage } = require("telegram/events");
 
-// event.js
 module.exports = function (RED) {
   function Receiver(config) {
     RED.nodes.createNode(this, config);

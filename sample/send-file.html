@@ -314,3 +314,150 @@
         />
     </div>
 </script>
+
+<script type="text/html" data-help-name="send-files">
+    <p>The <b>send-files</b> node allows you to send files to a Telegram chat or user using the Telegram API. It supports a wide range of parameters, including file attributes, captions, buttons, and scheduling options.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload.chatId
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The ID or username of the chat or user to send files to.</dd>
+
+        <dt>payload.files
+            <span class="property-type">array</span>
+        </dt>
+        <dd>A list of file paths or URLs to be sent. Multiple files can be specified.</dd>
+
+        <dt>payload.caption
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The caption text to include with the file. Supports Markdown or HTML formatting.</dd>
+
+        <dt>payload.forceDocument
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, forces the file to be sent as a document instead of its native media type.</dd>
+
+        <dt>payload.fileSize
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Specifies the file size, if known. Useful for optimization.</dd>
+
+        <dt>payload.clearDraft
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, clears the draft in the chat before sending the file.</dd>
+
+        <dt>payload.progressCallback
+            <span class="property-type">function</span>
+        </dt>
+        <dd>A function to monitor the progress of file uploads.</dd>
+
+        <dt>payload.replyTo
+            <span class="property-type">number</span>
+        </dt>
+        <dd>The ID of the message to reply to with the file.</dd>
+
+        <dt>payload.attributes
+            <span class="property-type">object</span>
+        </dt>
+        <dd>Additional attributes for the file, such as file type or metadata.</dd>
+
+        <dt>payload.thumb
+            <span class="property-type">string</span>
+        </dt>
+        <dd>A path or URL to a thumbnail image for the file.</dd>
+
+        <dt>payload.voiceNote
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, marks the file as a voice note.</dd>
+
+        <dt>payload.videoNote
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, marks the file as a video note.</dd>
+
+        <dt>payload.supportsStreaming
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, enables streaming support for video files.</dd>
+
+        <dt>payload.parseMode
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Specifies the parse mode for captions (<code>Markdown</code> or <code>HTML</code>).</dd>
+
+        <dt>payload.silent
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, sends the message silently without a notification.</dd>
+
+        <dt>payload.scheduleDate
+            <span class="property-type">string | number</span>
+        </dt>
+        <dd>Schedules the message to be sent at a specific time. Accepts a UNIX timestamp or date string.</dd>
+
+        <dt>payload.buttons
+            <span class="property-type">array</span>
+        </dt>
+        <dd>An array of buttons to include with the file message.</dd>
+
+        <dt>payload.workers
+            <span class="property-type">number</span>
+        </dt>
+        <dd>The number of workers for parallel uploads.</dd>
+
+        <dt>payload.noforwards
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If <code>true</code>, prevents the message from being forwarded.</dd>
+
+        <dt>payload.commentTo
+            <span class="property-type">number</span>
+        </dt>
+        <dd>The ID of the message to comment on in a channel.</dd>
+
+        <dt>payload.topMsgId
+            <span class="property-type">number</span>
+        </dt>
+        <dd>The ID of the pinned message to associate with the file.</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">object</span>
+        </dt>
+        <dd>Contains the response from the Telegram API, including details of the sent message or file.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>The <b>send-files</b> node allows advanced file-sending capabilities with full customization. It supports various Telegram features such as captions with rich text formatting, scheduled messages, silent delivery, and progress tracking.</p>
+
+    <h3>Example</h3>
+    <pre>
+    {
+        "payload": {
+            "chatId": "@examplechannel",
+            "files": ["path/to/file1.jpg", "path/to/file2.mp4"],
+            "caption": "Check out these files!",
+            "silent": true,
+            "parseMode": "Markdown",
+            "buttons": [
+                { "text": "Visit Website", "url": "https://example.com" }
+            ]
+        }
+    }
+    </pre>
+    <p>This example sends two files with a caption, using Markdown for formatting, and includes a button linking to a website. The message is sent silently.</p>
+
+    <h3>Error Handling</h3>
+    <p>If an error occurs (e.g., invalid file path or chat ID), the node logs an error message and does not send the file.</p>
+
+    <h3>Configuration</h3>
+    <p>The node can use a globally configured Telegram client or a client instance provided in the message payload. Ensure the client has permissions to send messages in the specified chat.</p>
+</script>
+

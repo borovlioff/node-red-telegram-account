@@ -14,6 +14,7 @@
   "license": "MIT",
   "node-red": {
     "nodes": {
+      "telegram-account-auth": "sample/auth.js",
       "telegram-account-config": "sample/config.js",
       "telegram-account-receiver": "sample/receiver.js",
       "telegram-account-command": "sample/command.js",
@@ -21,7 +22,7 @@
       "telegram-account-send-file": "sample/send-file.js",
       "telegram-account-entity": "sample/get-entity.js",
       "telegram-account-delete-message": "sample/delete-message.js",
-      "telegram-account-iter-dialog": "sample/iter-dialogs.js",
+      "telegram-account-iter-dialog": "sample/iter-dialogs.js", 
       "telegram-account-iter-messages": "sample/iter-messages.js"
     }
   },

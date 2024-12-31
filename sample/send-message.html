@@ -210,3 +210,91 @@
       <input type="text" id="node-input-topMsgId" placeholder="Top Msg ID">
   </div>
   </script>
+
+  <script type="text/html" data-help-name="send-message">
+    <p>The <b>send-message</b> node allows sending messages via Telegram using the <code>telegram</code> library. It supports various message types, formatting options, and additional features like scheduling and silent messages.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload.chatId
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The recipient's chat ID, username (prefixed with <code>@</code>), or "me" for personal chats.</dd>
+        
+        <dt>payload.message
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The message text to send.</dd>
+        
+        <dt>payload.parseMode
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Specifies the formatting mode, such as <code>markdown</code> or <code>html</code>.</dd>
+        
+        <dt>payload.schedule
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The timestamp (or ISO date string) to schedule the message for later sending.</dd>
+        
+        <dt>payload.replyTo
+            <span class="property-type">number</span>
+        </dt>
+        <dd>The ID of the message to reply to, if applicable.</dd>
+
+        <dt>payload.attributes
+            <span class="property-type">object</span>
+        </dt>
+        <dd>Additional attributes for the message.</dd>
+
+        <dt>payload.linkPreview
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>Determines whether to show link previews in the message.</dd>
+        
+        <dt>payload.file
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The path to a file to send (e.g., images, videos, documents).</dd>
+        
+        <dt>payload.thumb
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The path to a thumbnail for the file, if applicable.</dd>
+        
+        <dt>payload.buttons
+            <span class="property-type">array</span>
+        </dt>
+        <dd>An array of button configurations for inline or reply keyboards.</dd>
+        
+        <dt>payload.silent
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>If true, sends the message silently (no notification sound).</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload.response
+            <span class="property-type">object</span>
+        </dt>
+        <dd>The response from the Telegram API, containing details of the sent message.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>To use the <b>send-message</b> node, you must provide the recipient's chat ID and the message content. Additional parameters like <code>file</code>, <code>thumb</code>, and <code>buttons</code> enable sending multimedia messages or interactive content. The node automatically resolves usernames prefixed with <code>@</code> to their corresponding chat entities.</p>
+
+    <p>If scheduling is enabled, the <code>schedule</code> parameter should contain a valid timestamp or ISO date string. When sending files, ensure the <code>file</code> parameter specifies the correct path or URL.</p>
+
+    <h3>Example</h3>
+    <pre>
+    {
+        "payload": {
+            "chatId": "@example_user",
+            "message": "Hello, World!",
+            "parseMode": "markdown",
+            "silent": true
+        }
+    }
+    </pre>
+    <p>This input sends a silent message in Markdown format to the user <code>@example_user</code>.</p>
+</script>

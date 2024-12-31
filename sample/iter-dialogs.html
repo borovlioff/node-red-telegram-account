@@ -126,3 +126,87 @@
         />
     </div>
 </script>
+
+<script type="text/html" data-help-name="iter-dialogs">
+    <p>The <b>iter-dialogs</b> node retrieves a list of Telegram dialogs (chats, channels, or groups) by iterating through them using the Telegram API.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload.client
+            <span class="property-type">object</span>
+        </dt>
+        <dd>An optional Telegram client instance if not configured globally.</dd>
+
+        <dt>payload.limit
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Limits the number of dialogs to retrieve. Default is no limit.</dd>
+
+        <dt>payload.offsetDate
+            <span class="property-type">string | number</span>
+        </dt>
+        <dd>Fetch dialogs starting from this date. Provide a UNIX timestamp or a date string.</dd>
+
+        <dt>payload.offsetId
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Fetch dialogs starting from this message ID.</dd>
+
+        <dt>payload.offsetPeer
+            <span class="property-type">object</span>
+        </dt>
+        <dd>The peer object to start retrieving dialogs from.</dd>
+
+        <dt>payload.ignorePinned
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>Ignores pinned dialogs if set to <code>true</code>. Default is <code>false</code>.</dd>
+
+        <dt>payload.ignoreMigrated
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>Ignores migrated chats if set to <code>true</code>. Default is <code>false</code>.</dd>
+
+        <dt>payload.folder
+            <span class="property-type">number</span>
+        </dt>
+        <dd>Retrieves dialogs from a specific folder by folder ID.</dd>
+
+        <dt>payload.archived
+            <span class="property-type">boolean</span>
+        </dt>
+        <dd>Includes archived dialogs if set to <code>true</code>. Default is <code>false</code>.</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload.dialogs
+            <span class="property-type">object</span>
+        </dt>
+        <dd>An object containing dialogs, where keys are dialog IDs and values are dialog details.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>The <b>iter-dialogs</b> node uses the Telegram API to iterate over all available dialogs. It allows filtering by various parameters, such as the number of dialogs to retrieve (<code>limit</code>), starting date or message (<code>offsetDate</code>, <code>offsetId</code>), and additional flags like <code>ignorePinned</code> or <code>archived</code>.</p>
+    
+    <p>It supports advanced configurations such as folder-specific retrieval and skipping migrated chats, providing granular control over the dialogs to be processed.</p>
+
+    <h3>Example</h3>
+    <pre>
+    {
+        "payload": {
+            "limit": 10,
+            "offsetDate": "2023-12-01T00:00:00Z",
+            "archived": true
+        }
+    }
+    </pre>
+    <p>This input retrieves up to 10 archived dialogs starting from December 1, 2023.</p>
+
+    <h3>Error Handling</h3>
+    <p>If an error occurs during dialog retrieval (e.g., invalid parameters or API limitations), the node logs an error message and does not return a payload.</p>
+
+    <h3>Configuration</h3>
+    <p>The node can use a globally configured Telegram client or a client instance provided in the message payload. Ensure the client has sufficient permissions to access the dialogs.</p>
+</script>
+

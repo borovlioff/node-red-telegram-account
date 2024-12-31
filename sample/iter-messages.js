@@ -51,8 +51,6 @@ module.exports = function (RED) {
                 if (offsetDate) {
                     params.offsetDate = new Date(offsetDate).getTime() / 1000;
                 }
-                console.log("🚀 ~ file: iter-messages.js:58 ~ params:", params)
-                console.log(chatId)
 
                 if (chatId[0] === "@") { 
                     peerId = await client.getEntity(chatId);
