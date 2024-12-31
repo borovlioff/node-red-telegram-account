@@ -1,6 +1,6 @@
 {
   "name": "node-red-telegram-account",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
       "telegram-account-send-file": "sample/send-file.js",
       "telegram-account-entity": "sample/get-entity.js",
       "telegram-account-delete-message": "sample/delete-message.js",
-      "telegram-account-iter-dialog": "sample/iter-dialogs.js", 
+      "telegram-account-iter-dialog": "sample/iter-dialogs.js",
       "telegram-account-iter-messages": "sample/iter-messages.js"
     }
   },
