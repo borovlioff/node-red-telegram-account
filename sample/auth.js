@@ -27,26 +27,36 @@ module.exports = function (RED) {
                     phoneNumber: () => phoneNumber,
                     password: () => password,
                     phoneCode: async () =>{
+                        node.send({ 
+                            ...msg,
+                            topic:"need_code",
+                            payload:{ phoneNumber }
+                        })
                         return new Promise((resolve) => {
                             resolvePhoneCode = resolve;
-                            context.set("phoneCode", resolvePhoneCode);
+                            context.set(`phoneCode_${phoneNumber}`, resolvePhoneCode);
                         })
                     },
-                    onError: (err) => node.error(`Ошибка: ${err.message}`),
+                    onError: (err) => node.send({ ...msg, topic:"auth_error", payload:{ error: err.message } }),
                 });
 
                 const stringSession = client.session.save(); // Сохраняем сессию
                 node.send({
+                    ...msg,
                     topic: "auth_success",
                     payload: {
+                        phoneNumber,
                         stringSession,
-                        message: "Авторизация прошла успешно!",
+                        client,
+                        message: "Authentication was successful!",
                     },
                 });
                
             } catch (error) {
-                node.error(`Ошибка авторизации: ${error.message}`);
+                client.destroy();
+                node.error(`Error authenticating: ${error.message}`);
                 node.send({
+                    ...msg,
                     topic: "auth_error",
                     payload: {
                         error: error.message,

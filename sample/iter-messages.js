@@ -13,7 +13,6 @@ module.exports = function (RED) {
             const chatId = msg.payload?.chatId ? msg.payload.chatId : config.chatId;
             let peerId = chatId === "me" ? chatId : utils.parseID(chatId);
 
-            // Получаем параметры из входного сообщения или из конфигурации узла
             const limit = msg.payload?.limit || config.limit;
             const offsetDate = msg.payload?.offsetDate || config.offsetDate;
             const offsetId = msg.payload?.offsetId || config.offsetId;
@@ -70,13 +69,13 @@ module.exports = function (RED) {
                 try {
                     for await (const message of client.iterMessages(peerId, params)){
                         messages[message.id] = message;
-                        console.log(message.id, message.text);
+                       
                     }
                 } catch (error) {
                     const entity = await client.getInputEntity(peerId)
                     for await (const message of client.iterMessages(entity, params)){
                         messages[message.id] = message;
-                        console.log(message.id, message.text);
+                        
                     }
                 }
                 

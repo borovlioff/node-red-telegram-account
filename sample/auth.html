@@ -3,9 +3,9 @@
         category: 'telegram-account',
         color: '#a6bbcf',
         defaults: {
-            api_id: { value: "", required: true },
-            api_hash: { value: "", required: true },
-            phoneNumber: { value: "", required: true },
+            api_id: { value: "" },
+            api_hash: { value: "" },
+            phoneNumber: { value: "" },
             password: { value: "" },
         },
         inputs: 1,
@@ -67,72 +67,66 @@
 
 
 <script type="text/html" data-help-name="auth">
-    <p>The <b>auth</b> node facilitates Telegram API authentication using the <code>telegram</code> library. It allows users to authenticate a session and retrieve a stringSession for future use.</p>
+  <p>The <b>auth</b> node allows Telegram API authentication using the <code>telegram</code> library. It handles two-factor authentication if required and provides a <code>stringSession</code> for later use.</p>
 
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload.api_id
-            <span class="property-type">number | string</span>
-        </dt>
-        <dd>The Telegram API ID. Required for authentication.</dd>
-        
-        <dt>payload.api_hash
-            <span class="property-type">string</span>
-        </dt>
-        <dd>The Telegram API hash. Required for authentication.</dd>
-        
-        <dt>payload.phoneNumber
-            <span class="property-type">string</span>
-        </dt>
-        <dd>The phone number associated with the Telegram account.</dd>
-        
-        <dt>payload.password
-            <span class="property-type">string</span>
-        </dt>
-        <dd>The password for two-factor authentication (if enabled on the Telegram account).</dd>
-    </dl>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload.api_id <span class="property-type">number | string</span></dt>
+    <dd>Telegram API ID. Required for authentication.</dd>
 
-    <h3>Outputs</h3>
-    <dl class="message-properties">
-        <dt>topic
-            <span class="property-type">string</span>
-        </dt>
-        <dd>
-            - <b>"auth_success"</b>: Authentication was successful.  
-            - <b>"auth_error"</b>: An error occurred during authentication.
-        </dd>
+    <dt>payload.api_hash <span class="property-type">string</span></dt>
+    <dd>Telegram API hash. Required for authentication.</dd>
 
-        <dt>payload
-            <span class="property-type">object</span>
-        </dt>
-        <dd>
-            For <b>"auth_success"</b>:  
-            <ul>
-                <li><code>payload.stringSession</code>: The generated session string.</li>
-                <li><code>payload.message</code>: Success message.</li>
-            </ul>
-            For <b>"auth_error"</b>:  
-            <ul>
-                <li><code>payload.error</code>: The error message describing the issue.</li>
-            </ul>
-        </dd>
-    </dl>
+    <dt>payload.phoneNumber <span class="property-type">string</span></dt>
+    <dd>Phone number associated with the Telegram account. Required.</dd>
 
-    <h3>Details</h3>
-    <p>To use the <b>auth</b> node, pass the required API credentials and phone number as part of the input message payload. The node will initiate the Telegram authentication flow. If a two-factor password is required, include it in the <code>payload.password</code>.</p>
+    <dt>payload.password <span class="property-type">string</span></dt>
+    <dd>Password for two-factor authentication (if enabled). Optional.</dd>
+  </dl>
 
-    <p>The node temporarily stores the phone code resolver in the flow context under the key <code>phoneCode</code>. This allows subsequent nodes to resolve the phone code using a separate input mechanism, such as user interaction.</p>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>
+      <b>"need_code"</b>: Node requests a Telegram code from the user.<br>
+      <b>"auth_success"</b>: Authentication completed successfully; session is ready.<br>
+      <b>"auth_error"</b>: An error occurred during authentication.
+    </dd>
 
-    <h3>Example</h3>
-    <pre>
-    {
-        "payload": {
-            "api_id": 123456,
-            "api_hash": "your_api_hash",
-            "phoneNumber": "+123456789",
-            "password": "your_password"
-        }
-    }
-    </pre>
-    <p>This example input payload initiates the authentication process. Upon receiving the phone code, it should be resolved using a dedicated node or interface.</p>
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>
+      For <b>"auth_success"</b>:
+      <ul>
+        <li><code>payload.stringSession</code>: Generated session string.</li>
+        <li><code>payload.phoneNumber</code>: Phone number used.</li>
+        <li><code>payload.client</code>: Instance of TelegramClient (for internal flows).</li>
+        <li><code>payload.message</code>: Success message.</li>
+      </ul>
+      For <b>"auth_error"</b>:
+      <ul>
+        <li><code>payload.error</code>: Error message describing the issue.</li>
+      </ul>
+      For <b>"need_code"</b>:
+      <ul>
+        <li><code>payload.phoneNumber</code>: Phone number that requires code input.</li>
+      </ul>
+    </dd>
+  </dl>
+
+  <h3>Details</h3>
+  <p>Provide the required API credentials and phone number in the input message payload. The node will start the Telegram authentication flow. If two-factor authentication is required, provide <code>payload.password</code> (optional).</p>
+  <p>When a code is required, the node sends a message with <code>topic = "need_code"</code>. The phone code resolver is temporarily stored in the flow context under the key <code>phoneCode_<i>phoneNumber</i></code>. This allows another node or interface to provide the code and resolve the authentication promise.</p>
+
+  <h3>Example</h3>
+  <pre>
+{
+  "payload": {
+    "api_id": 123456,
+    "api_hash": "your_api_hash",
+    "phoneNumber": "+123456789",
+    "password": "your_password"
+  }
+}
+  </pre>
+  <p>After the phone code is sent by Telegram, it must be resolved using a separate input (for example, via a form or HTTP request) to complete the authentication.</p>
 </script>

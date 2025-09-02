@@ -29,7 +29,16 @@ module.exports = function (RED) {
 
             /** @type {TelegramClient} */
             const client = msg.payload?.client ? msg.payload.client : this.config.client;
-            let peerId = chatId === "me" ? chatId : parseID(chatId);
+            let peerId = chatId;
+
+            if(chatId[0] === "@"){
+                peerId = await client.getEntity(chatId);
+            } else if(chatId === "me"){
+                peerId = await client.getMe();
+            } else {
+                peerId = parseID(chatId);
+            }
+
 
             try {
                 const params = {
@@ -56,10 +65,6 @@ module.exports = function (RED) {
                 }
 
                 let response;
-                if (chatId[0] === "@") { 
-                    peerId = await client.getEntity(chatId);
-                }
-                
 
                 try {
                     response = await client.sendMessage(peerId, params);

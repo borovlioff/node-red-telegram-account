@@ -23,7 +23,7 @@ module.exports = function (RED) {
       }, new NewMessage());
       
     } catch (err) {
-      node.error('Ошибка авторизации: ' + err.message);
+      node.error('Error authenticating: ' + err.message);
     }
 
   }
